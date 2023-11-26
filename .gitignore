@@ -22,3 +22,9 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /final/ticket-service/src/main/resources/application.properties
+/final/ticket-service/target/maven-archiver/pom.properties
+/final/ticket-service/target/checkstyle-checker.xml
+/final/ticket-service/target/checkstyle-result.xml
+/final/ticket-service/target/checkstyle-suppressions.xml
+/final/ticket-service/target/jacoco.exec
+/final/ticket-service/target/ticket-service-0.0.1-SNAPSHOT.jar.original
