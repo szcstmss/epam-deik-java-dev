@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoomServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ticket-service</a> &gt; <a href="index.source.html" class="el_package">com.epam.training.ticketservice.service.impl</a> &gt; <span class="el_source">RoomServiceImpl.java</span></div><h1>RoomServiceImpl.java</h1><pre class="source lang-java linenums">package com.epam.training.ticketservice.service.impl;
+
+import com.epam.training.ticketservice.dataaccess.entities.RoomEntity;
+import com.epam.training.ticketservice.domain.user.Room;
+import com.epam.training.ticketservice.mappers.RoomEntityMapper;
+import com.epam.training.ticketservice.repository.RoomRepository;
+import com.epam.training.ticketservice.service.RoomService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class RoomServiceImpl implements RoomService {
+
+    private final RoomRepository roomRepository;
+    private final RoomEntityMapper roomEntityMapper;
+
+<span class="fc" id="L19">    public RoomServiceImpl(RoomRepository roomRepository, RoomEntityMapper roomEntityMapper) {</span>
+<span class="fc" id="L20">        this.roomRepository = roomRepository;</span>
+<span class="fc" id="L21">        this.roomEntityMapper = roomEntityMapper;</span>
+<span class="fc" id="L22">    }</span>
+
+    @Override
+    public boolean createRoom(String name, int chairsRowsNumber, int chairsColsNumber) {
+<span class="fc" id="L26">        RoomEntity roomEntity = new RoomEntity(name, chairsRowsNumber, chairsColsNumber);</span>
+
+<span class="fc" id="L28">        return roomRepository.saveRoomToDatabase(roomEntity);</span>
+    }
+
+    @Override
+    public boolean deleteRoom(String name) {
+<span class="fc" id="L33">        return roomRepository.deleteRoomFromDatabase(name);</span>
+    }
+
+    @Override
+    public List&lt;Room&gt; listRooms() {
+<span class="fc" id="L38">        return roomRepository.findAllRooms()</span>
+<span class="fc" id="L39">                .stream()</span>
+<span class="fc" id="L40">                .map(roomEntity -&gt; roomEntityMapper.mapRoomEntity(roomEntity))</span>
+<span class="fc" id="L41">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public boolean updateRoom(String name, int chairsRowsNumber, int chairsColsNumber) {
+<span class="fc" id="L46">        RoomEntity roomEntity = new RoomEntity(name, chairsRowsNumber, chairsColsNumber);</span>
+<span class="fc" id="L47">        return roomRepository.updateRoomFromDatabase(roomEntity);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JpaRoomRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ticket-service</a> &gt; <a href="index.source.html" class="el_package">com.epam.training.ticketservice.repository.impl</a> &gt; <span class="el_source">JpaRoomRepository.java</span></div><h1>JpaRoomRepository.java</h1><pre class="source lang-java linenums">package com.epam.training.ticketservice.repository.impl;
+
+import com.epam.training.ticketservice.dataaccess.dao.RoomDao;
+import com.epam.training.ticketservice.dataaccess.entities.RoomEntity;
+import com.epam.training.ticketservice.mappers.RoomEntityMapper;
+import com.epam.training.ticketservice.repository.RoomRepository;
+import com.epam.training.ticketservice.repository.impl.exceptions.RoomNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class JpaRoomRepository implements RoomRepository {
+    private RoomDao roomDao;
+    private final RoomEntityMapper roomEntityMapper;
+
+    @Autowired
+<span class="fc" id="L19">    public JpaRoomRepository(RoomDao roomDao, RoomEntityMapper roomEntityMapper) {</span>
+<span class="fc" id="L20">        this.roomDao = roomDao;</span>
+<span class="fc" id="L21">        this.roomEntityMapper = roomEntityMapper;</span>
+<span class="fc" id="L22">    }</span>
+
+    @Override
+    public boolean saveRoomToDatabase(RoomEntity roomEntity) {
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (roomDao.existsByName(roomEntity.getName())) {</span>
+<span class="fc" id="L27">            return false;</span>
+        }
+
+<span class="fc" id="L30">        roomDao.save(roomEntity);</span>
+
+<span class="fc" id="L32">        return true;</span>
+    }
+
+    @Override
+    public boolean deleteRoomFromDatabase(String name) {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (!roomDao.existsByName(name)) {</span>
+<span class="fc" id="L38">            return false;</span>
+        }
+
+<span class="fc" id="L41">        roomDao.deleteByName(name);</span>
+
+<span class="fc" id="L43">        return true;</span>
+    }
+
+    @Override
+    public List&lt;RoomEntity&gt; findAllRooms() {
+<span class="fc" id="L48">        return roomDao.findAll();</span>
+    }
+
+    @Override
+    public boolean updateRoomFromDatabase(RoomEntity roomEntity) {
+<span class="fc" id="L53">        String roomName = roomEntity.getName();</span>
+
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (!roomDao.existsByName(roomName)) {</span>
+<span class="fc" id="L56">            return false;</span>
+        }
+
+<span class="fc" id="L59">        RoomEntity updatedRoomEntity = roomDao.getRoomEntityByName(roomName);</span>
+<span class="fc" id="L60">        updatedRoomEntity.setChairsRowsNumber(roomEntity.getChairsRowsNumber());</span>
+<span class="fc" id="L61">        updatedRoomEntity.setChairsColsNumber(roomEntity.getChairsColsNumber());</span>
+
+<span class="fc" id="L63">        roomDao.save(updatedRoomEntity);</span>
+
+<span class="fc" id="L65">        return true;</span>
+    }
+
+    @Override
+    public RoomEntity getRoomEntityByName(String name) throws RoomNotFoundException {
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (!roomDao.existsByName(name)) {</span>
+<span class="fc" id="L71">            throw new RoomNotFoundException(&quot;Room Not Found!&quot;);</span>
+        }
+
+<span class="fc" id="L74">        return roomDao.getRoomEntityByName(name);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
