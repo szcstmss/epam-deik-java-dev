@@ -1,5 +1,5 @@
 package com.epam.training.ticketservice.service.impl;
-//n
+
 import com.epam.training.ticketservice.domain.user.UserAccount;
 import com.epam.training.ticketservice.repository.UserRepository;
 import com.epam.training.ticketservice.service.LoginService;

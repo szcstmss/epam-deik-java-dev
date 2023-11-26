@@ -1,6 +1,5 @@
 package com.epam.training.ticketservice.presentation.cli.handlers;
 
-
 import com.epam.training.ticketservice.domain.user.UserAccount;
 import com.epam.training.ticketservice.service.LoginService;
 import org.springframework.shell.standard.ShellComponent;
