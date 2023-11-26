@@ -37,7 +37,7 @@ public class LoginCommandHandler {
         return "Successfully signed out!";
     }
 
-    @ShellMethod(value = "Describe logged in User Account", key = "describe account")
+    @ShellMethod(value = "Describe logged in User Account:", key = "describe account")
     public String describeAccount() {
         Optional<UserAccount> userAccount = loginService.describeLoggedInAccount();
 
